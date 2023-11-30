@@ -1,7 +1,7 @@
 // index.js
 
-const cheerio = require('cheerio');
-const axios = require('axios');
+import axios, { isCancel, AxiosError } from 'axios';
+import * as cheerio from 'cheerio';
 
 async function performScraping() {
   // downloading the target web page
@@ -112,7 +112,7 @@ async function performScraping() {
   // converting the scraped data object to JSON
   const scrapedDataJSON = JSON.stringify(scrapedData);
 
+  console.log($);
   // storing scrapedDataJSON in a database via an API call...
 }
-
 performScraping();
