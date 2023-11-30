@@ -29,8 +29,8 @@ async function performScrapingAndDownloading() {
       htmlMemes.push(htmlMeme);
     });
 
-  const scrapedHtmlMemes = JSON.stringify(htmlMemes);
-  /*   console.log(htmlMemes); */
+  /* const scrapedHtmlMemes = JSON.stringify(htmlMemes);
+   */
 
   function downloadImage(url, filepath) {
     return new Promise((resolve, reject) => {

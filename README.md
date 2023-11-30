@@ -8,19 +8,20 @@ The image files should be named with a number with a leading zero, eg. 01.jpg, 0
 
 Scrape the images urls
 
-- [ ] install Axios and Cheerio
-- [ ] import axios and cheerio
-- [ ] get HTML data with axios.request
-- [ ] parse the axiosResponse.data with cheerio
-- [ ] make an array, where you can insert the scraped urls
-- [ ] transform the array to json
+- [x] install Axios and Cheerio
+- [x] import axios and cheerio
+- [x] get HTML data with axios.request
+- [x] parse the axiosResponse.data with cheerio
+- [x] make an array, where you can insert the scraped urls
 
 Download the images urls
 
-- [ ] save the first ten images in a folder called "memes"
-- [ ] the images should be saved with a leading zero, e.g. 01.jpg
-
-- [ ] scraped memes shouldn't show up in git, use gitignore
+- [x] save the first ten images in a folder called "memes"
+- [x] create a downloadImage function to download and save the images
+- [x] include errorhandling into the function
+- [x] iterate over the array of memes to get the first 10 urls and integrate the downloadImage function into the loop
+- [x] the images should be saved with a leading zero, e.g. 01.jpg
+- [x] scraped memes shouldn't show up in git, use gitignore
 
 Strech goals
 
