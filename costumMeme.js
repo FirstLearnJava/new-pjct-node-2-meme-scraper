@@ -30,6 +30,15 @@ async function performScrapingAndDownloading() {
       memesCount++;
     });
 
+  /* const scrapedHtmlMemes = JSON.stringify(htmlMemes);
+   */
+
+  function getRandomMeme() {
+    return Math.floor(Math.random() * memesCount);
+  }
+
+  const randomMemeCount = getRandomMeme();
+
   function downloadImage(url, filepath) {
     return new Promise((resolve, reject) => {
       client.get(url, (res) => {
@@ -50,19 +59,30 @@ async function performScrapingAndDownloading() {
   }
   let iterationCount = 0;
   let imagecount = 0;
-  for (const obj of htmlMemes) {
-    if (iterationCount >= 10) {
-      break;
-    }
 
-    for (const key in obj) {
-      const value = obj[key];
-      downloadImage(`${value}`, `memes/0${imagecount}.png`)
-        .then(console.log)
-        .catch(console.error);
-      imagecount++;
-    }
-    iterationCount++;
+  console.log(`${Object.values(htmlMemes[randomMemeCount])[0]}`);
+
+  const topMemeCaption = process.argv[2];
+  const bottomMemeCaption = process.argv[3];
+
+  let captionedRandomMemeUrl = '';
+
+  function generateAndCaptionRandomMeme(string, subString, index) {
+    const splittedUrl = string.split(subString, index).join(subString);
+
+    const captionedUrl = `${splittedUrl}/${topMemeCaption}/${bottomMemeCaption}.png?width=300&frames=10`;
+    captionedRandomMemeUrl = captionedUrl;
+    return captionedUrl;
   }
+
+  generateAndCaptionRandomMeme(
+    `${Object.values(htmlMemes[randomMemeCount])[0]}`,
+    '/',
+    5,
+  );
+
+  downloadImage(`${captionedRandomMemeUrl}`, `memes/costumMeme.png`)
+    .then(console.log)
+    .catch(console.error);
 }
 performScrapingAndDownloading();
