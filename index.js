@@ -2,6 +2,7 @@ import axios, { isCancel, AxiosError } from 'axios';
 import * as cheerio from 'cheerio';
 import fs from 'fs';
 import client from 'https';
+import cliProgress from 'cli-progress';
 
 // downloading the target web page
 // by performing an HTTP GET request in Axios
@@ -30,6 +31,13 @@ async function performScrapingAndDownloading() {
       memesCount++;
     });
 
+  /* const scrapedHtmlMemes = JSON.stringify(htmlMemes);
+   */
+
+  function getRandomMeme() {
+    return Math.floor(Math.random() * memesCount);
+  }
+
   function downloadImage(url, filepath) {
     return new Promise((resolve, reject) => {
       client.get(url, (res) => {
@@ -48,21 +56,31 @@ async function performScrapingAndDownloading() {
       });
     });
   }
+  const bar1 = new cliProgress.SingleBar(
+    {},
+    cliProgress.Presets.shades_classic,
+  );
+  bar1.start(200, 0);
+
   let iterationCount = 0;
   let imagecount = 0;
   for (const obj of htmlMemes) {
     if (iterationCount >= 10) {
+      bar1.stop();
       break;
     }
 
     for (const key in obj) {
       const value = obj[key];
-      downloadImage(`${value}`, `memes/0${imagecount}.png`)
-        .then(console.log)
-        .catch(console.error);
+      setTimeout(function () {
+        downloadImage(`${value}`, `memes/0${imagecount}.png`)
+          .then(console.log)
+          .catch(console.error);
+      }, 300 * imagecount);
       imagecount++;
     }
     iterationCount++;
+    bar1.increment(20);
   }
 }
 performScrapingAndDownloading();
